@@ -11,17 +11,21 @@ void getbytes(unsigned char dest[], int bytes, void * src, int reverse){
     int k = 0;
     unsigned char * input = src;
     if(reverse != 0){
-       for(i = (bytes-1); i >=0; i--){
+       for(i = (bytes-1); i >= 0; i--){
            
            dest[k] = input[i];
            k++;
        }
+       dest[k] = '\0';
     }
     else{
-        for(i = 0; i <= bytes; i++){
+        for(i = 0; i < bytes; i++){
             dest[i] = input[i];
         }
+        dest[i] = '\0';
     }
+
+
 }
 
 
@@ -39,14 +43,16 @@ void getbits(char dest[], int bytes, void * src, int start, int end){
 
 unsigned long long bits2ull(char * bits){
 
-    int i = 0;
+    int i = strlen(bits)-1;
     int k = 0;
     unsigned long long ull = 0;
 
-    for(i = (strlen(bits)-1); i <= 0; i--){
-        if(bits[k] == 1){
-            ull += pow(2,i);
+    while(bits[k] != '\0'){
+        if(bits[k] == '1'){
+            ull += (unsigned long long)pow(2,i);
+           
         }
+        i--;
         k++;
     }
 
@@ -61,20 +67,23 @@ unsigned long long bits2ull(char * bits){
 long long bits2ll(char * bits){
 
 
-    int i = 0;
+    int i = strlen(bits)-1;
     int k = 0;
-    
     long long ll = 0;
 
-    for(i = (strlen(bits)-1); i <= 0; i--){
-        if(k == 0){
-            ll += pow(2,-i);
+    while(bits[k] != '\0'){
+        if(k == 0 && bits[k] == '1'){
+            ll += (long long)pow(-2,i);
+           
         }
-        else if(bits[k] == 1){
-            ll += pow(2,i);
+        else if( k != 0 && bits[k] == '1' ){
+            ll += (long long)pow(2,i);
+        
         }
+        i--;
         k++;
     }
+
     return(ll);
 
 }

@@ -28,10 +28,10 @@ test_getbits: test_getbits.o bandb.o
 	gcc -std=c99 -Wall -pedantic test_getbits.o bandb.o -o test_getbits -lm
 
 test_bits2ull: test_bits2ull.o bandb.o
-	gcc -std=c99 -Wall -pedantic test_getbits2ull.o bandb.o -o test_getbits2ull -lm
+	gcc -std=c99 -Wall -pedantic test_bits2ull.o bandb.o -o test_bits2ull -lm
 
 test_bits2ll: test_bits2ll.o bandb.o
-	gcc -std=c99 -Wall -pedantic test_getbits2ll.o bandb.o -o test_getbits2ll -lm
+	gcc -std=c99 -Wall -pedantic test_bits2ll.o bandb.o -o test_bits2ll -lm
 
 test_spff: test_spff.o bandb.o
 	gcc -std=c99 -Wall -pedantic test_spff.o bandb.o -o test_spff -lm
