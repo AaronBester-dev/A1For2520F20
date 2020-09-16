@@ -12,7 +12,6 @@ void getbytes(unsigned char dest[], int bytes, void * src, int reverse){
     unsigned char * input = src;
     if(reverse != 0){
        for(i = (bytes-1); i >= 0; i--){
-           
            dest[k] = input[i];
            k++;
        }
@@ -32,6 +31,52 @@ void getbytes(unsigned char dest[], int bytes, void * src, int reverse){
 
 
 void getbits(char dest[], int bytes, void * src, int start, int end){
+    char * byteArray = src;
+    int i = bytes -(start/8)   ;
+    int k = (start % 8);
+    printf("%d i=%d k=%d\n",sizeof(unsigned short),i,k);
+    int c = 0;
+    int bingus = 0;
+    /*
+    int byteStart = bytes -(start/8) -1;
+    int bitStart = (start%8);
+    int byteEnd = bytes-(end/8) -1;
+    int bitEnd = end%8;
+    */
+    int bitsNeeded = start - (end+1);
+
+    while(strlen(dest) < bitsNeeded){
+
+         bingus = (byteArray[i] >> k) & 1;
+         
+         if(bingus == 1){
+             dest[c] = '1';
+         }
+         else{
+             dest[c] = '0';
+         }
+        
+         k--;
+         if(k < 0){
+             k = 7;
+             i--;
+         }
+         c++;
+    }
+    dest[c] = '\0';
+/*
+    for(i = 0; i<=byteEnd; i++){
+        if(i = 0){
+            for(k = bitStart; k >=0; k--){
+
+            }
+        }
+        else{
+            for(k = 8; k>=)
+        }
+
+    }
+*/
 
 }
 
