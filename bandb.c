@@ -29,7 +29,7 @@ void getbytes(unsigned char dest[], int bytes, void * src, int reverse){
 
 void getbits(char dest[], int bytes, void * src, int start, int end){
     char * byteArray = (char *)src;
-    int i = bytes - (start/8);
+    int i = (start/8);
     int k = (start % 8);
     int c = 0;
     int bingus = 0;
@@ -39,7 +39,7 @@ void getbits(char dest[], int bytes, void * src, int start, int end){
     int byteEnd = bytes-(end/8) -1;
     int bitEnd = end%8;
     */
-    int bitsNeeded = start - (end+1);
+    int bitsNeeded = start - end;
     while(c < bitsNeeded){
 
          bingus = (int)(byteArray[i] >> k) & 1;
