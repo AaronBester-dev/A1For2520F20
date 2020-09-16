@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "bandb.h"
 
 
@@ -8,27 +9,37 @@ void getbytes(unsigned char dest[], int bytes, void * src, int reverse){
 
     int i = 0;
     int k = 0;
-
+    unsigned char * input = src;
     if(reverse != 0){
        for(i = (bytes-1); i >=0; i--){
-           dest[k] = &src[i];
+           
+           dest[k] = input[i];
            k++;
        }
     }
     else{
-        for(o = 0; i <= bytes; i++){
-            dest[i] = &src[i];
+        for(i = 0; i <= bytes; i++){
+            dest[i] = input[i];
         }
     }
 }
+
+
+
 
 void getbits(char dest[], int bytes, void * src, int start, int end){
 
 }
 
+
+
+
+
+
+
 unsigned long long bits2ull(char * bits){
 
-    int i = 0
+    int i = 0;
     int k = 0;
     unsigned long long ull = 0;
 
@@ -42,6 +53,10 @@ unsigned long long bits2ull(char * bits){
     return(ull);
 
 }
+
+
+
+
 
 long long bits2ll(char * bits){
 
@@ -60,14 +75,24 @@ long long bits2ll(char * bits){
         }
         k++;
     }
-
+    return(ll);
 
 }
+
+
+
+
+
 
 void spff(char * sign, char * exponent, char * significand, float * src){
 
 }
 
+
+
+
+
 void dpff(char * sign, char * exponent, char * significant, double * src){
 
 }
+
