@@ -32,7 +32,7 @@ void getbits(char dest[], int bytes, void * src, int start, int end){
     int i = (start/8);
     int k = (start % 8);
     int c = 0;
-    int bingus = 0;
+    int intConv = 0;
     /*
     int byteStart = bytes -(start/8) -1;
     int bitStart = (start%8);
@@ -42,9 +42,9 @@ void getbits(char dest[], int bytes, void * src, int start, int end){
     int bitsNeeded = start - end;
     while(c < bitsNeeded){
 
-         bingus = (int)(byteArray[i] >> k) & 1;
+         intConv = (int)(byteArray[i] >> k) & 1;
          
-         if(bingus == 1){
+         if(intConv == 1){
              dest[c] = '1';
          }
          else{
@@ -110,12 +110,12 @@ void spff(char * sign, char * exponent, char * significand, float * src){
     int k = 7;
   
     int c = 0;
-    int bingus = 0;
+    int intConv = 0;
     
 
-         bingus = (byteArray[i] >> k) & 1;
+         intConv = (byteArray[i] >> k) & 1;
          
-         if(bingus == 1){
+         if(intConv == 1){
              sign[0] = '1';
          }
          else{
@@ -125,9 +125,9 @@ void spff(char * sign, char * exponent, char * significand, float * src){
          sign[1] = '\0';
 
          while(c < 8){
-             bingus = (byteArray[i] >> k ) & 1;
+             intConv = (byteArray[i] >> k ) & 1;
             
-            if(bingus == 1){
+            if(intConv == 1){
                 exponent[c] = '1';
             }
             else{
@@ -143,9 +143,9 @@ void spff(char * sign, char * exponent, char * significand, float * src){
          exponent[c] = '\0';
         c = 0;
          while(c < 23){
-              bingus = (byteArray[i] >> k ) & 1;
+              intConv = (byteArray[i] >> k ) & 1;
             
-            if(bingus == 1){
+            if(intConv == 1){
                 significand[c] = '1';
             }
             else{
@@ -172,10 +172,10 @@ void dpff(char * sign, char * exponent, char * significant, double * src){
     int k = 7;
   
     int c = 0;
-    int bingus = 0;
-    bingus = (byteArray[i] >> k) & 1;
+    int intConv = 0;
+    intConv = (byteArray[i] >> k) & 1;
          
-    if(bingus == 1){
+    if(intConv == 1){
         sign[0] = '1';
     }
     else{
@@ -185,9 +185,9 @@ void dpff(char * sign, char * exponent, char * significant, double * src){
     sign[1] = '\0';
 
          while(c < 11){
-             bingus = (byteArray[i] >> k ) & 1;
+             intConv = (byteArray[i] >> k ) & 1;
             
-            if(bingus == 1){
+            if(intConv == 1){
                 exponent[c] = '1';
             }
             else{
@@ -203,9 +203,9 @@ void dpff(char * sign, char * exponent, char * significant, double * src){
          exponent[c] = '\0';
         c = 0;
          while(c < 52){
-              bingus = (byteArray[i] >> k ) & 1;
+              intConv = (byteArray[i] >> k ) & 1;
             
-            if(bingus == 1){
+            if(intConv == 1){
                 significant[c] = '1';
             }
             else{
