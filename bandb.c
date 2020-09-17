@@ -13,14 +13,12 @@ void getbytes(unsigned char dest[], int bytes, void * src, int reverse){
     if(reverse != 0){
        for(i = (bytes-1); i >= 0; i--){
            dest[k] = input[i];
-           
            k++;
        }
        dest[k] = '\0';
     }
     else{
         for(i = 0; i < bytes; i++){   
-            printf(" big gay%c", input[0]);
             dest[i] = input[i];
         }
         dest[i] = '\0';
@@ -29,32 +27,19 @@ void getbytes(unsigned char dest[], int bytes, void * src, int reverse){
 
 void getbits(char dest[], int bytes, void * src, int start, int end){
     char * byteArray = (char *)src;
-    int i = (start/8);
+    int i = bytes - (start/8) - 1;
     int k = (start % 8);
     int c = 0;
-    int intConv = 0;
-    /*
-    int byteStart = bytes -(start/8) -1;
-    int bitStart = (start%8);
-    int byteEnd = bytes-(end/8) -1;
-    int bitEnd = end%8;
-    */
     int bitsNeeded = start - end;
+    
     while(c < bitsNeeded){
 
-         intConv = (int)(byteArray[i] >> k) & 1;
-         
-         if(intConv == 1){
-             dest[c] = '1';
-         }
-         else{
-             dest[c] = '0';
-         }
-        
+         dest[c] = ((byteArray[i] >> k) & 1) + '0';
+    
          k--;
          if(k < 0){
              k = 7;
-             i--;
+             i++;
          }
          c++;
     }
@@ -69,8 +54,7 @@ unsigned long long bits2ull(char * bits){
 
     while(bits[k] != '\0'){
         if(bits[k] == '1'){
-            ull += (unsigned long long)pow(2,i);
-           
+            ull += (1 << i); 
         }
         i--;
         k++;
@@ -81,20 +65,16 @@ unsigned long long bits2ull(char * bits){
 }
 
 long long bits2ll(char * bits){
-
-
     int i = strlen(bits)-1;
     int k = 0;
     long long ll = 0;
 
     while(bits[k] != '\0'){
         if(k == 0 && bits[k] == '1'){
-            ll += (long long)pow(-2,i);
-           
+            ll += ((1 << i) * -1);
         }
         else if( k != 0 && bits[k] == '1' ){
-            ll += (long long)pow(2,i);
-        
+            ll += (1 << i);
         }
         i--;
         k++;
