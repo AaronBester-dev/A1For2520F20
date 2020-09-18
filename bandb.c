@@ -53,9 +53,7 @@ unsigned long long bits2ull(char * bits){
     unsigned long long ull = 0;
 
     while(bits[k] != '\0'){
-        if(bits[k] == '1'){
-            ull += (1 << i); 
-        }
+        ull += (bits[k]-'0') *(1 << i); 
         i--;
         k++;
     }
@@ -70,12 +68,13 @@ long long bits2ll(char * bits){
     long long ll = 0;
 
     while(bits[k] != '\0'){
-        if(k == 0 && bits[k] == '1'){
-            ll += ((1 << i) * -1);
+        if(((i % 2) != 0) && (k == 0)){
+            ll += -((bits[k]-'0') * (1 << i));
         }
-        else if( k != 0 && bits[k] == '1' ){
-            ll += (1 << i);
+        else{
+            ll += (bits[k]-'0') * (1 << i);
         }
+        
         i--;
         k++;
     }
@@ -85,6 +84,12 @@ long long bits2ll(char * bits){
 }
 
 void spff(char * sign, char * exponent, char * significand, float * src){
+    unsigned char dest[5];
+    getbytes(dest,4,src,1);
+    getbits(sign,4,dest,31,30);
+    getbits(exponent,4,dest,30,22);
+    getbits(significand,4,dest,22,-1);
+    /*
     char * byteArray = (char *)src;
     int i = 3;
     int k = 7;
@@ -140,6 +145,7 @@ void spff(char * sign, char * exponent, char * significand, float * src){
          }
    
     significand[c] = '\0';
+    */
 }
 
 
@@ -147,6 +153,13 @@ void spff(char * sign, char * exponent, char * significand, float * src){
 
 
 void dpff(char * sign, char * exponent, char * significant, double * src){
+    unsigned char dest[9];
+    getbytes(dest,8,src,1);
+    getbits(sign,8,dest,63,62);
+    getbits(exponent,8,dest,62,51);
+    getbits(significant,8,dest,51,-1);
+    
+   /*
     char * byteArray = (char *)src;
     int i = 7;
     int k = 7;
@@ -200,5 +213,6 @@ void dpff(char * sign, char * exponent, char * significant, double * src){
          }
    
     significant[c] = '\0';
+    */
 }
 
