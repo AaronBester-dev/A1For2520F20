@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 #include "bandb.h"
 
 
@@ -50,14 +49,17 @@ unsigned long long bits2ull(char * bits){
 
     int i = strlen(bits)-1;
     int k = 0;
+   
     unsigned long long ull = 0;
 
     while(bits[k] != '\0'){
-        ull += (bits[k]-'0') *(1 << i); 
+       
+        
+        ull += (bits[k]-'0') * ((unsigned long long)1 << i); 
         i--;
         k++;
     }
-
+    
     return(ull);
 
 }
@@ -65,16 +67,18 @@ unsigned long long bits2ull(char * bits){
 long long bits2ll(char * bits){
     int i = strlen(bits)-1;
     int k = 0;
+   
     long long ll = 0;
 
     while(bits[k] != '\0'){
+        
         if(((i % 2) != 0) && (k == 0)){
-            ll += -((bits[k]-'0') * (1 << i));
+            ll += -(bits[k]-'0') * ((long long)1 << i);
         }
         else{
-            ll += (bits[k]-'0') * (1 << i);
+            ll += (bits[k]-'0') * ((long long)1 << i);
         }
-        
+           
         i--;
         k++;
     }
