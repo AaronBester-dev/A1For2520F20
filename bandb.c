@@ -3,7 +3,6 @@
 #include <string.h>
 #include "bandb.h"
 
-
 void getbytes(unsigned char dest[], int bytes, void * src, int reverse){
     int i = 0;
     int k = 0;
@@ -65,13 +64,12 @@ long long bits2ll(char * bits){
     int k = 0;
     long long ll = 0;
 
+    ll += (-1) * (bits[k]-'0') * ((long long)1 << i);
+    i--;
+    k++;
+
     while(bits[k] != '\0'){
-        if(((i % 2) != 0) && (k == 0)){
-            ll += -(bits[k]-'0') * ((long long)1 << i);
-        }
-        else{
-            ll += (bits[k]-'0') * ((long long)1 << i);
-        }
+        ll += (bits[k]-'0') * ((long long)1 << i);
         i--;
         k++;
     }
@@ -88,71 +86,11 @@ void spff(char * sign, char * exponent, char * significand, float * src){
     getbits(significand,4,dest,22,-1);
 }
 
-
-
-
-
 void dpff(char * sign, char * exponent, char * significant, double * src){
     unsigned char dest[9];
     getbytes(dest,8,src,1);
     getbits(sign,8,dest,63,62);
     getbits(exponent,8,dest,62,51);
     getbits(significant,8,dest,51,-1);
-    
-   /*
-    char * byteArray = (char *)src;
-    int i = 7;
-    int k = 7;
-  
-    int c = 0;
-    int intConv = 0;
-    intConv = (byteArray[i] >> k) & 1;
-         
-    if(intConv == 1){
-        sign[0] = '1';
-    }
-    else{
-        sign[0] = '0';
-    }
-    k--;
-    sign[1] = '\0';
-
-         while(c < 11){
-             intConv = (byteArray[i] >> k ) & 1;
-            
-            if(intConv == 1){
-                exponent[c] = '1';
-            }
-            else{
-                exponent[c] = '0';
-            }
-            k--;
-            if(k < 0){
-                k = 7;
-                i--;
-            }
-            c++;
-         }
-         exponent[c] = '\0';
-        c = 0;
-         while(c < 52){
-              intConv = (byteArray[i] >> k ) & 1;
-            
-            if(intConv == 1){
-                significant[c] = '1';
-            }
-            else{
-                significant[c] = '0';
-            }
-            k--;
-            if(k < 0){
-                k = 7;
-                i--;
-            }
-            c++;
-         }
-   
-    significant[c] = '\0';
-    */
 }
 
