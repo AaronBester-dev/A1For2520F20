@@ -25,16 +25,15 @@ void getbytes(unsigned char dest[], int bytes, void * src, int reverse){
 }
 
 void getbits(char dest[], int bytes, void * src, int start, int end){
-    char * byteArray = (char *)src;
+    unsigned char * byteArray = (unsigned char *)src;
     int i = bytes - (start/8) - 1;
     int k = (start % 8);
     int c = 0;
     int bitsNeeded = start - end;
     
     while(c < bitsNeeded){
-
          dest[c] = ((byteArray[i] >> k) & 1) + '0';
-    
+
          k--;
          if(k < 0){
              k = 7;
@@ -46,15 +45,12 @@ void getbits(char dest[], int bytes, void * src, int start, int end){
 }
 
 unsigned long long bits2ull(char * bits){
-
     int i = strlen(bits)-1;
     int k = 0;
    
     unsigned long long ull = 0;
 
     while(bits[k] != '\0'){
-       
-        
         ull += (bits[k]-'0') * ((unsigned long long)1 << i); 
         i--;
         k++;
@@ -67,18 +63,15 @@ unsigned long long bits2ull(char * bits){
 long long bits2ll(char * bits){
     int i = strlen(bits)-1;
     int k = 0;
-   
     long long ll = 0;
 
     while(bits[k] != '\0'){
-        
         if(((i % 2) != 0) && (k == 0)){
             ll += -(bits[k]-'0') * ((long long)1 << i);
         }
         else{
             ll += (bits[k]-'0') * ((long long)1 << i);
         }
-           
         i--;
         k++;
     }
@@ -93,63 +86,6 @@ void spff(char * sign, char * exponent, char * significand, float * src){
     getbits(sign,4,dest,31,30);
     getbits(exponent,4,dest,30,22);
     getbits(significand,4,dest,22,-1);
-    /*
-    char * byteArray = (char *)src;
-    int i = 3;
-    int k = 7;
-  
-    int c = 0;
-    int intConv = 0;
-    
-
-         intConv = (byteArray[i] >> k) & 1;
-         
-         if(intConv == 1){
-             sign[0] = '1';
-         }
-         else{
-             sign[0] = '0';
-         }
-         k--;
-         sign[1] = '\0';
-
-         while(c < 8){
-             intConv = (byteArray[i] >> k ) & 1;
-            
-            if(intConv == 1){
-                exponent[c] = '1';
-            }
-            else{
-                exponent[c] = '0';
-            }
-            k--;
-            if(k < 0){
-                k = 7;
-                i--;
-            }
-            c++;
-         }
-         exponent[c] = '\0';
-        c = 0;
-         while(c < 23){
-              intConv = (byteArray[i] >> k ) & 1;
-            
-            if(intConv == 1){
-                significand[c] = '1';
-            }
-            else{
-                significand[c] = '0';
-            }
-            k--;
-            if(k < 0){
-                k = 7;
-                i--;
-            }
-            c++;
-         }
-   
-    significand[c] = '\0';
-    */
 }
 
 
