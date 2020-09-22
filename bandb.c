@@ -28,38 +28,40 @@ void getbytes(unsigned char dest[], int bytes, void * src, int reverse){
 /*Gets each individual bits from a source and prints each bit as a char in a string */
 void getbits(char dest[], int bytes, void * src, int start, int end){
     unsigned char * byteArray = (unsigned char *)src;
-    int i = bytes - (start/8) - 1;
-    int k = (start % 8);
-    int c = 0;
+    int currentByte = bytes - (start/8) - 1;
+    int currentBit = (start % 8);
+    int i = 0;
     int bitsNeeded = start - end;
     
-    while(c < bitsNeeded){
+    while(i < bitsNeeded){
         /*Shifts the bit needed into the rightmost position so we can check it with the 1 bit and see whether its on or off */
         /*The + '0' addition simply adds the ascii code of 0 to the original value in order to change it from a int to a char */
-         dest[c] = ((byteArray[i] >> k) & 1) + '0';
+         dest[i] = ((byteArray[currentByte] >> currentBit) & 1) + '0';
 
-         k--;
-         if(k < 0){
-             k = 7;
-             i++;
+         currentBit--;
+         if(currentBit < 0){
+             currentBit = 7;
+             currentByte++;
          }
-         c++;
+         i++;
     }
-    dest[c] = '\0';
+    dest[i] = '\0';
 }
 
 /*Takes a string of bits and converts it into its decimal value. */
 unsigned long long bits2ull(char * bits){
-    int i = strlen(bits)-1;
-    int k = 0;
+    int bitPosition = strlen(bits)-1;
+    int currentBit = 0;
    
     unsigned long long ull = 0;
 
-    while(bits[k] != '\0'){
+    while(bits[currentBit] != '\0'){
         /*Takes every bit in bit string and multiplies it by 2 ^ of the bit position */;
-        ull += (bits[k]-'0') * ((unsigned long long)1 << i); 
-        i--;
-        k++;
+        /* 1 is type casted to unsigned long long because 1 is naturally a integer but a integer only has 32 bits so you can only go up to 2^31 where as the highest test case needs to go to
+        2^63 so you need to make 1 have 64 bits by type casting it to a 64 or higher bit type.*/
+        ull += (bits[currentBit]-'0') * ((unsigned long long)1 << bitPosition); 
+        bitPosition--;
+        currentBit++;
     }
     
     return(ull);
@@ -67,19 +69,21 @@ unsigned long long bits2ull(char * bits){
 }
 /*Takes a string of two's complement bits and converts it into its decimal value. */
 long long bits2ll(char * bits){
-    int i = strlen(bits)-1;
-    int k = 0;
+    int bitPosition = strlen(bits)-1;
+    int currentBit = 0;
     long long ll = 0;
     /*Simply takes the first bit and makes it negative.*/
-    ll += (-1) * (bits[k]-'0') * ((long long)1 << i);
-    i--;
-    k++;
+    /* 1 is type casted to unsigned long long because 1 is naturally a integer but a integer only has 32 bits so you can only go up to 2^31 where as the highest test case needs to go to
+    2^63 so you need to make 1 have 64 bits by type casting it to a 64 bit or higher type.*/
+    ll += (-1) * (bits[currentBit]-'0') * ((long long)1 << bitPosition);
+    bitPosition--;
+    currentBit++;
 
-    while(bits[k] != '\0'){
+    while(bits[currentBit] != '\0'){
         /*Takes every bit in bit string and multiplies it by 2 ^ of the bit position */;
-        ll += (bits[k]-'0') * ((long long)1 << i);
-        i--;
-        k++;
+        ll += (bits[currentBit]-'0') * ((long long)1 << bitPosition);
+        bitPosition--;
+        currentBit++;
     }
 
     return(ll);
