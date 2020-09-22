@@ -5,23 +5,23 @@
 
 /*Gets the bytes from any source and takes each byte from source and puts it in a char string */
 void getbytes(unsigned char dest[], int bytes, void * src, int reverse){
-    int i = 0;
-    int k = 0;
+    int byteIndex = 0;
+    int reversedArrayIndex = 0;
     unsigned char * input = src;
     /*Gets the string in reverse by taking the rightmost bit needed first instead of the left.*/
     if(reverse != 0){
-       for(i = (bytes-1); i >= 0; i--){
-           dest[k] = input[i];
-           k++;
+       for(byteIndex = (bytes-1); byteIndex >= 0; byteIndex--){
+           dest[reversedArrayIndex] = input[byteIndex];
+           reversedArrayIndex++;
        }
-       dest[k] = '\0';
+       dest[reversedArrayIndex] = '\0';
     }
     /*Otherwise just gets the bits needed in order*/
     else{
-        for(i = 0; i < bytes; i++){   
-            dest[i] = input[i];
+        for(byteIndex = 0; byteIndex < bytes; byteIndex++){   
+            dest[byteIndex] = input[byteIndex];
         }
-        dest[i] = '\0';
+        dest[byteIndex] = '\0';
     }
 }
 
